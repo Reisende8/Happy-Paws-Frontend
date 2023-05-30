@@ -5,7 +5,9 @@ import { AuthContext } from "../auth";
 import { HPInput } from "../common/HPInput";
 import { HPButton } from "../common/HPButton";
 import { isValidEmail } from "../utils/validators";
+import { useNavigate } from "react-router-dom";
 export const LogIn: React.FC = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [logInErrors, setLogInErrors] = useState<LogInErrorInterface>({
     emailError: "",
@@ -53,6 +55,7 @@ export const LogIn: React.FC = () => {
     const errors = {
       emailError: "",
       passwordError: "",
+      fromBEError: "",
     };
     if (logInData.email === "") {
       errors.emailError = "This field is required!";
@@ -103,7 +106,7 @@ export const LogIn: React.FC = () => {
         px={32}
         gap={6}
       >
-        <Image src="logo.png" h={28} />
+        <Image src="icons/logo.png" h={28} />
         <Text fontWeight={"bold"} fontSize={"4xl"} color={"primary.900"}>
           Log In
         </Text>
@@ -136,7 +139,11 @@ export const LogIn: React.FC = () => {
           >
             New to Happy Paws?
           </Flex>
-          <Button variant="outline" colorScheme="primary">
+          <Button
+            variant="outline"
+            colorScheme="primary"
+            onClick={() => navigate("/account-type")}
+          >
             Create your account
           </Button>
         </Flex>
