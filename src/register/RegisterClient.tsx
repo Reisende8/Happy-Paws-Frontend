@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth";
 import { HPButton } from "../common/HPButton";
 import { HPInput } from "../common/HPInput";
-import { isValidEmail } from "../utils/validators";
+import { isValidEmail, isValidPassword } from "../utils/validators";
 import { RegisterClientErrorInterface, RegisterClientInterface } from "./types";
 
 export const RegisterClient: React.FC = () => {
@@ -60,7 +60,7 @@ export const RegisterClient: React.FC = () => {
     });
   };
 
-  const handleLPhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {
       setRegisterClientErrors({
         ...registerClientErrors,
@@ -103,6 +103,12 @@ export const RegisterClient: React.FC = () => {
       setRegisterClientErrors({
         ...registerClientErrors,
         passwordError: "This field is required!",
+      });
+    } else if (!isValidPassword(e.target.value)) {
+      setRegisterClientErrors({
+        ...registerClientErrors,
+        passwordError:
+          "The password must have at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character!",
       });
     } else {
       setRegisterClientErrors({ ...registerClientErrors, passwordError: "" });
@@ -158,15 +164,24 @@ export const RegisterClient: React.FC = () => {
     }
     if (registerClientData.password === "") {
       errors.passwordError = "This field is required!";
+    } else if (!isValidPassword(registerClientData.password)) {
+      errors.passwordError =
+        "The password must have at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character!";
     }
     if (registerClientData.repeatPassword === "") {
       errors.repeatPasswordError = "This field is required!";
+    } else if (
+      registerClientData.password !== registerClientData.repeatPassword
+    ) {
+      errors.repeatPasswordError =
+        "The password and repeat password are different!";
     }
 
     return errors;
   };
 
   const handleRegisterClick = async () => {
+    setLoading(true);
     const errors = handleRegisterClientErrors();
     if (
       errors.firstNameError === "" &&
@@ -179,6 +194,7 @@ export const RegisterClient: React.FC = () => {
       await registerClient(registerClientData);
     }
     setRegisterClientErrors(errors);
+    setLoading(false);
   };
 
   return (
@@ -227,12 +243,14 @@ export const RegisterClient: React.FC = () => {
           />
         </Flex>
         <HPInput
+          type="number"
           label={"Phone Number"}
           error={registerClientErrors.phoneNumberError}
           value={registerClientData.phoneNumber}
-          onChange={handleLPhoneNumberChange}
+          onChange={handlePhoneNumberChange}
         />
         <HPInput
+          type="email"
           label={"Email"}
           error={registerClientErrors.emailError}
           value={registerClientData.email}
@@ -253,7 +271,9 @@ export const RegisterClient: React.FC = () => {
           value={registerClientData.repeatPassword}
           onChange={handleRepeatPasswordChange}
         />
-        <HPButton onClick={handleRegisterClick}>Register</HPButton>
+        <HPButton onClick={handleRegisterClick} isLoading={loading}>
+          Register
+        </HPButton>
       </Flex>
     </Flex>
   );

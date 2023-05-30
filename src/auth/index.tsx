@@ -8,5 +8,9 @@ export const AuthContext = createContext<UseAuthInterface>(
 
 export const AuthWrapper: React.FC<PropsWithChildren> = ({ children }) => {
   const auth = useAuth();
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={auth}>
+      {auth.didMount && children}
+    </AuthContext.Provider>
+  );
 };

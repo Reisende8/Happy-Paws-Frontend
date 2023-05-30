@@ -1,4 +1,4 @@
-import { Button, Flex, Text, Image } from "@chakra-ui/react";
+import { Button, Flex, Text, Image, Spinner } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { LogInErrorInterface, LogInInterface } from "./types";
 import { AuthContext } from "../auth";
@@ -70,19 +70,21 @@ export const LogIn: React.FC = () => {
   };
 
   const handleLoginClick = async () => {
+    setLoading(true);
     const errors = handleLogInErrors();
     if (errors.emailError === "" && errors.passwordError === "") {
       await logIn(logInData);
     }
     setLogInErrors(errors);
+    setLoading(false);
   };
 
   return (
     <Flex
       direction={"column"}
-      height={"100vh"}
+      minHeight={"100vh"}
       width="100%"
-      justifyContent={"center"}
+      border="2px solid red"
       alignItems={"center"}
     >
       <Flex
@@ -123,7 +125,9 @@ export const LogIn: React.FC = () => {
           value={logInData.password}
           onChange={handlePasswordChange}
         />
-        <HPButton onClick={handleLoginClick}>Log In</HPButton>
+        <HPButton onClick={handleLoginClick} isLoading={loading}>
+          Log In
+        </HPButton>
         <Flex
           direction="row"
           alignItems={"center"}

@@ -6,18 +6,22 @@ import { AuthWrapper } from "./auth";
 import { AccountType } from "./register/AccountTypeComponent";
 import { RegisterClient } from "./register/RegisterClient";
 import { RegisterClinic } from "./register/RegisterClinic";
+import { NotFoundPage } from "./notFoundPage";
+import { HomePage } from "./home";
 
 export const App = () => (
-  <AuthWrapper>
-    <ChakraProvider theme={theme}>
-      <BrowserRouter>
+  <ChakraProvider theme={theme}>
+    <BrowserRouter>
+      <AuthWrapper>
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/account-type" element={<AccountType />} />
           <Route path="/register-client" element={<RegisterClient />} />
           <Route path="/register-clinic" element={<RegisterClinic />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </BrowserRouter>
-    </ChakraProvider>
-  </AuthWrapper>
+      </AuthWrapper>
+    </BrowserRouter>
+  </ChakraProvider>
 );

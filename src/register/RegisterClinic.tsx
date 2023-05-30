@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth";
 import { HPButton } from "../common/HPButton";
 import { HPInput } from "../common/HPInput";
-import { isValidEmail } from "../utils/validators";
+import { isValidEmail, isValidPassword } from "../utils/validators";
 import {
   RegisterClientErrorInterface,
   RegisterClientInterface,
@@ -109,6 +109,12 @@ export const RegisterClinic: React.FC = () => {
         ...registerClinicErrors,
         passwordError: "This field is required!",
       });
+    } else if (!isValidPassword(e.target.value)) {
+      setRegisterClinicErrors({
+        ...registerClinicErrors,
+        passwordError:
+          "The password must have at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character!",
+      });
     } else {
       setRegisterClinicErrors({ ...registerClinicErrors, passwordError: "" });
     }
@@ -163,15 +169,24 @@ export const RegisterClinic: React.FC = () => {
     }
     if (registerClinicData.password === "") {
       errors.passwordError = "This field is required!";
+    } else if (!isValidPassword(registerClinicData.password)) {
+      errors.passwordError =
+        "The password must have at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character!";
     }
     if (registerClinicData.repeatPassword === "") {
       errors.repeatPasswordError = "This field is required!";
+    } else if (
+      registerClinicData.password !== registerClinicData.repeatPassword
+    ) {
+      errors.repeatPasswordError =
+        "The password and repeat password are different!";
     }
 
     return errors;
   };
 
   const handleRegisterClick = async () => {
+    setLoading(true);
     const errors = handleRegisterClientErrors();
     if (
       errors.nameError === "" &&
@@ -184,6 +199,7 @@ export const RegisterClinic: React.FC = () => {
       await registerClinic(registerClinicData);
     }
     setRegisterClinicErrors(errors);
+    setLoading(false);
   };
 
   return (
@@ -225,6 +241,7 @@ export const RegisterClinic: React.FC = () => {
             onChange={handleNameChange}
           />
           <HPInput
+            type="number"
             label={"Phone Number"}
             error={registerClinicErrors.phoneNumberError}
             value={registerClinicData.phoneNumber}
@@ -238,6 +255,7 @@ export const RegisterClinic: React.FC = () => {
           onChange={handleAddressChange}
         />
         <HPInput
+          type="email"
           label={"Email"}
           error={registerClinicErrors.emailError}
           value={registerClinicData.email}
@@ -258,7 +276,9 @@ export const RegisterClinic: React.FC = () => {
           value={registerClinicData.repeatPassword}
           onChange={handleRepeatPasswordChange}
         />
-        <HPButton onClick={handleRegisterClick}>Register</HPButton>
+        <HPButton onClick={handleRegisterClick} isLoading={loading}>
+          Register
+        </HPButton>
       </Flex>
     </Flex>
   );
