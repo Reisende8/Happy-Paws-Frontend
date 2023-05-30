@@ -1,11 +1,11 @@
-import { Button, Flex, Text, Image, Spinner } from "@chakra-ui/react";
+import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
-import { LogInErrorInterface, LogInInterface } from "./types";
-import { AuthContext } from "../auth";
-import { HPInput } from "../common/HPInput";
-import { HPButton } from "../common/HPButton";
-import { isValidEmail } from "../utils/validators";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../auth";
+import { HPButton } from "../common/HPButton";
+import { HPInput } from "../common/HPInput";
+import { isValidEmail } from "../utils/validators";
+import { LogInErrorInterface, LogInInterface } from "./types";
 
 export const LogIn: React.FC = () => {
   const navigate = useNavigate();
@@ -84,7 +84,6 @@ export const LogIn: React.FC = () => {
       direction={"column"}
       minHeight={"100vh"}
       width="100%"
-      border="2px solid red"
       alignItems={"center"}
     >
       <Flex

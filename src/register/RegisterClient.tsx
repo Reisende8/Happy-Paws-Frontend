@@ -1,6 +1,5 @@
-import { Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth";
 import { HPButton } from "../common/HPButton";
 import { HPInput } from "../common/HPInput";
@@ -8,7 +7,6 @@ import { isValidEmail, isValidPassword } from "../utils/validators";
 import { RegisterClientErrorInterface, RegisterClientInterface } from "./types";
 
 export const RegisterClient: React.FC = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
   const [registerClientErrors, setRegisterClientErrors] =
     useState<RegisterClientErrorInterface>({

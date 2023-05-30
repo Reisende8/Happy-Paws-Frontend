@@ -4,7 +4,7 @@ import { Flex, Spinner } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export const HomePage: React.FC = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {

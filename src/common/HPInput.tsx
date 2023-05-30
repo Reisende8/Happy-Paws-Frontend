@@ -1,12 +1,12 @@
 import { Flex, Input, InputProps, Text } from "@chakra-ui/react";
 import React from "react";
 
-interface HPInput extends InputProps {
+interface HPInputInterface extends InputProps {
   error?: string;
   label: string;
 }
 
-export const HPInput: React.FC<HPInput> = (props) => {
+export const HPInput: React.FC<HPInputInterface> = (props) => {
   const { error, label, ...others } = props;
   return (
     <Flex direction={"column"} width="100%" fontWeight={500} fontSize={"18px"}>
