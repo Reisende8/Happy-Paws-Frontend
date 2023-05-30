@@ -6,6 +6,7 @@ import { HPInput } from "../common/HPInput";
 import { HPButton } from "../common/HPButton";
 import { isValidEmail } from "../utils/validators";
 import { useNavigate } from "react-router-dom";
+
 export const LogIn: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
@@ -52,10 +53,9 @@ export const LogIn: React.FC = () => {
   };
 
   const handleLogInErrors = () => {
-    const errors = {
+    const errors: LogInErrorInterface = {
       emailError: "",
       passwordError: "",
-      fromBEError: "",
     };
     if (logInData.email === "") {
       errors.emailError = "This field is required!";

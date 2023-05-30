@@ -24,7 +24,7 @@ export const HPInput: React.FC<HPInput> = (props) => {
         {...others}
       />
       {!!error && (
-        <Text color="danger.400" px={1}>
+        <Text color="danger.400" px={1} fontSize={16}>
           {error}
         </Text>
       )}
