@@ -13,15 +13,15 @@ const themeColors = {
     900: "#893400",
   },
   secondary: {
-    100: "#aaf1f2",
-    200: "#88eced",
-    300: "#66e6e7",
-    400: "#44e0e2",
-    500: "#22dbdd",
-    600: "#1db9bb",
-    700: "#189799",
-    800: "#127677",
-    900: "#0d5455",
+    100: "#c7f1c7",
+    200: "#a2e8a2",
+    300: "#7ddf7d",
+    400: "#57d657",
+    500: "#32cd32",
+    600: "#29a829",
+    700: "#208220",
+    800: "#175d17",
+    900: "#0e380e",
   },
   danger: {
     100: "#ed9191",
@@ -48,7 +48,7 @@ const themeColors = {
 };
 
 export const theme = extendTheme({
-  themeColors,
+  colors: themeColors,
   fonts: {
     heading: "Quicksand",
     body: "Quicksand",
