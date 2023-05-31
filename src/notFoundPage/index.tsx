@@ -8,7 +8,6 @@ export const NotFoundPage: React.FC = () => {
       height="100vh"
       justifyContent={"center"}
       alignItems="center"
-      border="2px solid red"
     >
       <Flex
         justifyContent={"center"}
