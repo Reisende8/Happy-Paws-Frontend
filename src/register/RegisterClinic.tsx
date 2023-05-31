@@ -1,4 +1,14 @@
-import { Flex, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+} from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../auth";
 import { HPButton } from "../common/HPButton";
@@ -8,6 +18,7 @@ import { RegisterClinicErrorInterface, RegisterClinicInterface } from "./types";
 
 export const RegisterClinic: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [emailModalOpen, setEmailModalOpen] = useState<boolean>(false);
   const [registerClinicErrors, setRegisterClinicErrors] =
     useState<RegisterClinicErrorInterface>({
       nameError: "",
@@ -190,9 +201,14 @@ export const RegisterClinic: React.FC = () => {
       errors.repeatPasswordError === ""
     ) {
       await registerClinic(registerClinicData);
+      setEmailModalOpen(true);
     }
     setRegisterClinicErrors(errors);
     setLoading(false);
+  };
+
+  const onEmailModalClose = () => {
+    setEmailModalOpen(false);
   };
 
   return (
@@ -272,6 +288,37 @@ export const RegisterClinic: React.FC = () => {
         <HPButton onClick={handleRegisterClick} isLoading={loading}>
           Register
         </HPButton>
+        <Modal
+          closeOnOverlayClick={false}
+          isOpen={emailModalOpen}
+          onClose={onEmailModalClose}
+          size={"2xl"}
+        >
+          <ModalOverlay backdropFilter="blur(4px) " />
+          <ModalContent
+            justifyContent={"center"}
+            alignItems={"center"}
+            margin="auto"
+            gap={4}
+          >
+            <ModalHeader>
+              <Text fontSize="3xl" color="primary.700">
+                Email Confirmation
+              </Text>
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody textAlign={"center"}>
+              <Text fontSize={"xl"} color="primary.600">
+                We have sent you an email to activate your account. Follow the
+                link provided to complete your registration. Please make sure to
+                also check spam!
+              </Text>
+            </ModalBody>
+            <ModalFooter w="100%">
+              <HPButton onClick={onEmailModalClose}>OK</HPButton>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Flex>
     </Flex>
   );

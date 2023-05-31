@@ -16,6 +16,7 @@ export const useAuth: UseAuth = () => {
   const [user, setUser] = useState<ClientInterface | ClinicInterface | null>(
     null
   );
+
   const [didMount, setDidMount] = useState<boolean>(false);
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -48,6 +49,13 @@ export const useAuth: UseAuth = () => {
         });
       })
       .finally(() => setDidMount(true));
+  };
+
+  const logInFromActivation = async (token: string) => {
+    localStorage.setItem("token", token);
+    const decoded: { roleId: number } = jwt_decode(token);
+    await getUserDetails(decoded.roleId);
+    navigate("/");
   };
 
   const logIn = async (logInData: LogInInterface) => {
@@ -112,5 +120,13 @@ export const useAuth: UseAuth = () => {
     setUser(null);
     navigate("/login");
   };
-  return { logIn, registerClient, registerClinic, logOut, user, didMount };
+  return {
+    logIn,
+    logInFromActivation,
+    registerClient,
+    registerClinic,
+    logOut,
+    user,
+    didMount,
+  };
 };

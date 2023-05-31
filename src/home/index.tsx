@@ -19,7 +19,7 @@ export const HomePage: React.FC = () => {
   }, []);
   return (
     <Flex w="100vw" h="100vh" justifyContent={"center"} alignItems={"center"}>
-      <Spinner size="xl" colorScheme="primary" />
+      <Spinner size="xl" colorScheme="primary" thickness="4px" />
     </Flex>
   );
 };

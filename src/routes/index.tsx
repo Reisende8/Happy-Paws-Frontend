@@ -7,12 +7,14 @@ import { AccountType } from "../register/AccountTypeComponent";
 import { RegisterClinic } from "../register/RegisterClinic";
 import { NotFoundPage } from "../notFoundPage";
 import { AuthContext } from "../auth";
+import { ActivateAccount } from "../activateAccount";
 
 export const RoutesComponent: React.FC = () => {
   const { user } = useContext(AuthContext);
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/activate-account" element={<ActivateAccount />} />
       {!user && (
         <>
           <Route path="/login" element={<LogIn />} />

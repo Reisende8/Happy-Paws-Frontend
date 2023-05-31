@@ -6,6 +6,7 @@ import {
 } from "../register/types";
 
 export interface UseAuthInterface {
+  logInFromActivation: (token: string) => void;
   logIn: (logInData: LogInInterface) => Promise<void | ToastId>;
   registerClient: (
     registerClientData: RegisterClientInterface
@@ -38,4 +39,9 @@ export interface ClinicInterface {
   address: string;
   name: string;
   phoneNumber: string;
+}
+
+export interface ErrorInterface {
+  error: string;
+  message: string;
 }
