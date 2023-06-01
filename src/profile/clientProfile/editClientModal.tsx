@@ -9,6 +9,7 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { HPButton } from "../../common/HPButton";
@@ -27,6 +28,7 @@ export const EditClientModal: React.FC<EditClientInterface> = ({
   user,
   setUser,
 }) => {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = useState<boolean>(false);
   const [editClientData, setEditClientData] = useState<ClientInterface>(user);
@@ -85,7 +87,7 @@ export const EditClientModal: React.FC<EditClientInterface> = ({
     });
   };
 
-  const handleRegisterClientErrors = () => {
+  const handleEditClientErrors = () => {
     const errors: EditClientErrorsInterface = {
       firstNameError: "",
       lastNameError: "",
@@ -105,7 +107,7 @@ export const EditClientModal: React.FC<EditClientInterface> = ({
   };
 
   const handleEditClientClick = () => {
-    const errors = handleRegisterClientErrors();
+    const errors = handleEditClientErrors();
     if (
       errors.firstNameError === "" &&
       errors.lastNameError === "" &&
@@ -142,9 +144,21 @@ export const EditClientModal: React.FC<EditClientInterface> = ({
           phoneNumberError: "",
         });
         onClose();
+        return toast({
+          title: "SUCCESS",
+          status: "success",
+          position: "top-right",
+          description: `Your profile has been updated successfully!`,
+        });
       })
       .catch((err) => {
         console.error(err);
+        return toast({
+          title: "ERROR",
+          status: "error",
+          position: "top-right",
+          description: `${err.response.data.message}`,
+        });
       });
     setLoading(false);
   };

@@ -1,5 +1,54 @@
-import React from "react";
+import { Flex, Text } from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../auth";
+import { ClinicInterface } from "../../auth/types";
+import { HPBadge } from "../../common/HPBadge";
+import { EditClinicModal } from "./editClinicModal";
 
 export const ClinicProfile: React.FC = () => {
-  return <>Clinic Profile</>;
+  const { user, setUser } = useContext(AuthContext);
+
+  return (
+    <Flex
+      border="4px solid "
+      borderColor={"primary.100"}
+      borderRadius={"3xl"}
+      w="100%"
+      h="100%"
+      alignItems="center"
+      justifyContent={"center"}
+      direction="column"
+    >
+      <Flex
+        justifyContent={"center"}
+        direction="column"
+        w="50%"
+        border="4px solid "
+        borderColor={"primary.200"}
+        borderRadius={"3xl"}
+        p={8}
+        gap={8}
+      >
+        <Flex alignItems={"center"} justifyContent={"space-between"}>
+          <Text fontWeight={"bold"} fontSize={"4xl"} color={"primary.600"}>
+            My Profile
+          </Text>
+          <EditClinicModal user={user as ClinicInterface} setUser={setUser} />
+        </Flex>
+
+        <Flex w="100%" gap={8}>
+          <HPBadge label="Name" content={(user as ClinicInterface).name} />
+          <HPBadge
+            label="Address"
+            content={(user as ClinicInterface).address}
+          />
+        </Flex>
+        <HPBadge label="Email" content={(user as ClinicInterface).email} />
+        <HPBadge
+          label="Phone Number"
+          content={(user as ClinicInterface).phoneNumber}
+        />
+      </Flex>
+    </Flex>
+  );
 };
