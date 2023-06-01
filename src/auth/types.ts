@@ -16,6 +16,7 @@ export interface UseAuthInterface {
   ) => Promise<void>;
   logOut: () => void;
   user: ClientInterface | ClinicInterface | null;
+  setUser: (user: ClientInterface | ClinicInterface | null) => void;
   didMount: boolean;
 }
 

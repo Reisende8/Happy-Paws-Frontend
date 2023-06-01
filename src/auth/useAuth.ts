@@ -127,6 +127,7 @@ export const useAuth: UseAuth = () => {
     registerClinic,
     logOut,
     user,
+    setUser,
     didMount,
   };
 };

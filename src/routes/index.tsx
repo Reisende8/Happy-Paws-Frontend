@@ -9,6 +9,8 @@ import { AccountType } from "../register/AccountTypeComponent";
 import { RegisterClient } from "../register/RegisterClient";
 import { RegisterClinic } from "../register/RegisterClinic";
 import { Box } from "@chakra-ui/react";
+import { ClientProfile } from "../profile/clientProfile";
+import { ClinicProfile } from "../profile/clinicProfile";
 
 export const RoutesComponent: React.FC = () => {
   const { user } = useContext(AuthContext);
@@ -28,13 +30,13 @@ export const RoutesComponent: React.FC = () => {
       {user?.roleId === 0 && (
         <>
           <Route path="/appointments" element={<>Appointments</>} />
-          <Route path="/client-profile" element={<>Client Profile</>} />
+          <Route path="/client-profile" element={<ClientProfile />} />
         </>
       )}
       {user?.roleId === 1 && (
         <>
           <Route path="/medics" element={<>Medics</>} />
-          <Route path="/clinic-profile" element={<>Clinic Profile</>} />
+          <Route path="/clinic-profile" element={<ClinicProfile />} />
         </>
       )}
 
