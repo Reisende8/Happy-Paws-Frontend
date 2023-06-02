@@ -40,6 +40,10 @@ export const RoutesComponent: React.FC = () => {
           <Route path="/medics" element={<AllMedicsPage />} />
           <Route path="/clinic-profile" element={<ClinicProfile />} />
           <Route path="/medics/:medicId" element={<MedicProfile />} />
+          <Route
+            path="/medics/:medicId/previous_appointments"
+            element={<>PREVIOUS APPOINTMENTS</>}
+          />
         </>
       )}
 

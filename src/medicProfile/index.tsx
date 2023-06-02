@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimalInterface, MedicInterface } from "../medics/types";
 import { apiClient, authorize } from "../utils/apiClient";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Flex, useToast, Text, Spinner } from "@chakra-ui/react";
 import { HPBadge } from "../common/HPBadge";
 import { AddNewMedicModal } from "../medics/addNewMedicModal";
@@ -15,6 +15,7 @@ export const MedicProfile: React.FC = () => {
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const { medicId } = useParams();
   const toast = useToast();
+  const navigate = useNavigate();
   useEffect(() => {
     getMedicDetails(medicId as string);
   }, []);
@@ -146,6 +147,17 @@ export const MedicProfile: React.FC = () => {
                 .toString() as string
             }
           />
+        </Flex>
+        <Flex justifyContent={"center"} w="100%">
+          <HPButton
+            maxW="400px"
+            m={0}
+            onClick={() => {
+              navigate(`/medics/${medicId}/previous_appointments`);
+            }}
+          >
+            Previous Appointments
+          </HPButton>
         </Flex>
       </Flex>
 
