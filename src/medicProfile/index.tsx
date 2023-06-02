@@ -10,6 +10,7 @@ import { specializations } from "../utils";
 
 export const MedicProfile: React.FC = () => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
+  const [loadingEdit, setLoadingEdit] = useState<boolean>(false);
   const [medicDetails, setMedicDetails] = useState<MedicInterface>();
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const { medicId } = useParams();
@@ -36,7 +37,40 @@ export const MedicProfile: React.FC = () => {
     setLoadingData(false);
   };
 
-  const editMedic = async () => {};
+  const editMedic = async (medic: MedicInterface) => {
+    setLoadingEdit(true);
+    await apiClient
+      .put(
+        `/api/medic/medics/${medic.medicId}`,
+        {
+          firstName: medic.firstName,
+          lastName: medic.lastName,
+          estimatedPrice: medic.estimatedPrice,
+          animalIds: medic.animals.map((an) => parseInt(an.id)),
+        },
+        authorize()
+      )
+      .then((res) => {
+        setMedicDetails(res.data);
+        setEditModalOpen(false);
+        return toast({
+          title: "SUCCESS",
+          status: "success",
+          position: "top-right",
+          description: `You deleted a medic successfully!`,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        return toast({
+          title: "ERROR",
+          status: "error",
+          position: "top-right",
+          description: `${err.response.data.message}`,
+        });
+      });
+    setLoadingEdit(false);
+  };
   return loadingData ? (
     <Flex w="100vw" h="100vh" justifyContent={"center"} alignItems={"center"}>
       <Spinner size="xl" colorScheme="primary" thickness="4px" />
@@ -117,6 +151,7 @@ export const MedicProfile: React.FC = () => {
 
       {editModalOpen && (
         <AddNewMedicModal
+          isLoading={loadingEdit}
           medic={medicDetails}
           onClose={() => {
             setEditModalOpen(false);

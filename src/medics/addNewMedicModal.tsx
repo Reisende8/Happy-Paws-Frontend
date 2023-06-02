@@ -23,7 +23,7 @@ import {
 import { specializations } from "../utils";
 
 interface AddNewMedicModalInterface {
-  isLoading?: boolean;
+  isLoading: boolean;
   medic?: MedicInterface;
   onClose: () => void;
   onSuccess: (medic: MedicInterface) => Promise<void>;
@@ -234,12 +234,13 @@ export const AddNewMedicModal: React.FC<AddNewMedicModalInterface> = ({
               value={medicModalData.estimatedPrice}
               onChange={handleEstimatedPriceChange}
             />
-            <Flex w="100%" direction={"column"}>
+            <Flex w="100%" direction={"column"} px={1}>
+              <Text color={"primary.900"} fontWeight={500} fontSize={"18px"}>
+                Animals
+              </Text>
               <Flex
-                mt={6}
                 h="100%"
                 gap={4}
-                justifyContent={"center"}
                 alignItems={"center"}
                 fontWeight={"medium"}
                 textColor={"primary.900"}
@@ -250,6 +251,10 @@ export const AddNewMedicModal: React.FC<AddNewMedicModalInterface> = ({
                     onChange={(e) => {
                       handleCheckboxChange(e, { id: "0", name: "Cat" });
                     }}
+                    isChecked={
+                      !!medicModalData.animals.filter((a) => a.id === "0")
+                        .length
+                    }
                   >
                     <Text fontSize={"xl"}>Cat</Text>
                   </Checkbox>
@@ -258,12 +263,16 @@ export const AddNewMedicModal: React.FC<AddNewMedicModalInterface> = ({
                     onChange={(e) => {
                       handleCheckboxChange(e, { id: "1", name: "Dog" });
                     }}
+                    isChecked={
+                      !!medicModalData.animals.filter((a) => a.id === "1")
+                        .length
+                    }
                   >
                     <Text fontSize={"xl"}>Dog</Text>
                   </Checkbox>
                 </CheckboxGroup>
               </Flex>
-              <Flex justifyContent={"center"}>
+              <Flex>
                 {!!medicErrors.animalsError && (
                   <Text color="danger.400" fontSize={16} fontWeight={500}>
                     {medicErrors.animalsError}
