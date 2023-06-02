@@ -12,3 +12,23 @@ export interface AnimalInterface {
   id: string;
   name: string;
 }
+
+export interface AddMedicInterface {
+  firstName: string;
+  lastName: string;
+  estimatedPrice: number;
+  specializationId: string;
+  animalIds: number[];
+}
+
+export interface SpecializationInterface {
+  id: number;
+  name: string;
+}
+export interface MedicErrorsInterface {
+  firstNameError: string;
+  lastNameError: string;
+  specializationError: string;
+  estimatedPriceError: string;
+  animalsError: string;
+}

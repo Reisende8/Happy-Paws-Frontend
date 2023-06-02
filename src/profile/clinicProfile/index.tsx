@@ -22,7 +22,7 @@ export const ClinicProfile: React.FC = () => {
       <Flex
         justifyContent={"center"}
         direction="column"
-        w="50%"
+        minW="50%"
         border="4px solid "
         borderColor={"primary.200"}
         borderRadius={"3xl"}

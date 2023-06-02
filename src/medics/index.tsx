@@ -7,16 +7,74 @@ import { MedicInterface } from "./types";
 import { AuthContext } from "../auth";
 import { apiClient, authorize } from "../utils/apiClient";
 import { ClinicInterface } from "../auth/types";
+import { AddNewMedicModal } from "./addNewMedicModal";
+import { useNavigate } from "react-router-dom";
 
 export const AllMedicsPage: React.FC = () => {
   const toast = useToast();
+  const navigate = useNavigate();
+  const [loadingModal, setLoadingModal] = useState<boolean>(false);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState<boolean>(false);
-  const [medicsData, setMedicsData] = useState<MedicInterface[]>();
+  const [medicsData, setMedicsData] = useState<MedicInterface[]>([]);
+  const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getMedics((user as ClinicInterface).clinicId);
   }, []);
+
+  const deleteMedic = async (medic: MedicInterface) => {
+    await apiClient
+      .delete(`/api/medic/delete-medic/${medic.medicId}`, authorize())
+      .then((res) => {
+        setMedicsData(medicsData.filter((m) => m.medicId !== medic.medicId));
+        return toast({
+          title: "SUCCESS",
+          status: "success",
+          position: "top-right",
+          description: `You deleted a medic successfully!`,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const addNewMedic = async (newMedic: MedicInterface) => {
+    setLoadingModal(true);
+    await apiClient
+      .post(
+        "/api/medic/create-medic",
+        {
+          firstName: newMedic.firstName,
+          lastName: newMedic.lastName,
+          estimatedPrice: newMedic.estimatedPrice,
+          specializationId: parseInt(newMedic.specializationId),
+          animalIds: newMedic.animals.map((an) => parseInt(an.id)),
+        },
+        authorize()
+      )
+      .then((res) => {
+        setMedicsData([...medicsData, res.data]);
+        setAddModalOpen(false);
+        return toast({
+          title: "SUCCESS",
+          status: "success",
+          position: "top-right",
+          description: `You created a medic successfully!`,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        return toast({
+          title: "ERROR",
+          status: "error",
+          position: "top-right",
+          description: `${err.response.data.message}`,
+        });
+      });
+    setLoadingModal(false);
+  };
 
   const getMedics = async (clinicId: string) => {
     setLoading(true);
@@ -60,7 +118,15 @@ export const AllMedicsPage: React.FC = () => {
         <Text fontWeight={"bold"} fontSize={"4xl"} color={"primary.500"}>
           All Medics
         </Text>
-        <HPButton w="0" px={24} m={0} onClick={() => {}} gap={2}>
+        <HPButton
+          w="0"
+          px={24}
+          m={0}
+          onClick={() => {
+            setAddModalOpen(true);
+          }}
+          gap={2}
+        >
           <Icon as={AddIcon} boxSize={4} />
           Add new medic
         </HPButton>
@@ -69,12 +135,26 @@ export const AllMedicsPage: React.FC = () => {
         {medicsData?.map((medic) => {
           return (
             <HPListItem
+              medic={medic}
               key={medic.medicId}
               name={`${medic.firstName} ${medic.lastName}`}
+              onDelete={deleteMedic}
+              onMoreDetailsClick={() => {
+                navigate(`/medics/${medic.medicId}`);
+              }}
             />
           );
         })}
       </Flex>
+      {addModalOpen && (
+        <AddNewMedicModal
+          isLoading={loadingModal}
+          onClose={() => {
+            setAddModalOpen(false);
+          }}
+          onSuccess={addNewMedic}
+        />
+      )}
     </Flex>
   );
 };

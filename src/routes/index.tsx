@@ -12,6 +12,7 @@ import { Box } from "@chakra-ui/react";
 import { ClientProfile } from "../profile/clientProfile";
 import { ClinicProfile } from "../profile/clinicProfile";
 import { AllMedicsPage } from "../medics";
+import { MedicProfile } from "../medicProfile";
 
 export const RoutesComponent: React.FC = () => {
   const { user } = useContext(AuthContext);
@@ -38,6 +39,7 @@ export const RoutesComponent: React.FC = () => {
         <>
           <Route path="/medics" element={<AllMedicsPage />} />
           <Route path="/clinic-profile" element={<ClinicProfile />} />
+          <Route path="/medics/:medicId" element={<MedicProfile />} />
         </>
       )}
 
