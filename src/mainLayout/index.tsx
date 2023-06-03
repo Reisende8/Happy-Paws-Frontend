@@ -15,6 +15,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       {user && <Navbar />}
 
       <Flex
+        justifyContent={user ? "center" : ""}
+        alignItems={user ? "center" : ""}
         h={user ? "calc(100vh - 64px)" : ""}
         overflowX={"auto"}
         p={user ? 8 : ""}

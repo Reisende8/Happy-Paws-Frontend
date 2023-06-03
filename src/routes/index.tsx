@@ -8,11 +8,12 @@ import { NotFoundPage } from "../notFoundPage";
 import { AccountType } from "../register/AccountTypeComponent";
 import { RegisterClient } from "../register/RegisterClient";
 import { RegisterClinic } from "../register/RegisterClinic";
-import { Box } from "@chakra-ui/react";
 import { ClientProfile } from "../profile/clientProfile";
 import { ClinicProfile } from "../profile/clinicProfile";
 import { AllMedicsPage } from "../medics";
 import { MedicProfile } from "../medicProfile";
+import { MyAppointmentsPage } from "../appointments/MyAppointments";
+import { AppointmentPage } from "../appointments/CreateAppointment";
 
 export const RoutesComponent: React.FC = () => {
   const { user } = useContext(AuthContext);
@@ -31,8 +32,9 @@ export const RoutesComponent: React.FC = () => {
       )}
       {user?.roleId === 0 && (
         <>
-          <Route path="/appointments" element={<>Appointments</>} />
+          <Route path="/appointments" element={<MyAppointmentsPage />} />
           <Route path="/client-profile" element={<ClientProfile />} />
+          <Route path="/create-appointment" element={<AppointmentPage />} />
         </>
       )}
       {user?.roleId === 1 && (
