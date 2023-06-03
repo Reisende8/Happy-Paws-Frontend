@@ -64,7 +64,6 @@ export const useAppointment: UseAppointment = () => {
       )
       .then((res) => {
         setRecommendedMedicsData(res.data);
-        console.log(res.data);
         setActiveStep(activeStep + 1);
       })
       .catch((err) => {
