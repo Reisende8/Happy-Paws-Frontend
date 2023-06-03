@@ -13,3 +13,11 @@ export const isValidPassword = (password: string) => {
   }
   return false;
 };
+
+// Calculate the next date
+export const nextDate = () => {
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 1);
+  const nextDate = currentDate.toISOString().split("T")[0];
+  return nextDate;
+};

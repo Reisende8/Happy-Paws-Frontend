@@ -14,12 +14,12 @@ export const HPInput: React.FC<HPInputInterface> = (props) => {
         {label}
       </Text>
       <Input
+        border="2px solid"
         isInvalid={!!error}
         focusBorderColor="secondary.700"
         errorBorderColor={"danger.400"}
         borderColor={"primary.400"}
         w="100%"
-        border="2px solid"
         borderRadius={12}
         {...others}
       />

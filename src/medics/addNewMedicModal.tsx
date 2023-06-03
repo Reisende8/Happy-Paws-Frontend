@@ -217,6 +217,7 @@ export const AddNewMedicModal: React.FC<AddNewMedicModalInterface> = ({
           </Flex>
           {!medic && (
             <HPSelect
+              label={"Specialization"}
               options={specializations}
               error={medicErrors.specializationError}
               value={medicModalData.specializationId}

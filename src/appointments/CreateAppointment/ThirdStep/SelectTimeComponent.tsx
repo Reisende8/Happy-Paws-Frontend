@@ -1,16 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppointmentContext } from "..";
 import { Flex } from "@chakra-ui/react";
 import { HPButton } from "../../../common/HPButton";
 
 export const SelectTimeComponent: React.FC = () => {
-  const { activeStep, setActiveStep } = useContext(AppointmentContext);
+  const {
+    activeStep,
+    setActiveStep,
+    appointmentData,
+    setAppointmentData,
+    selectedMedicInfo,
+  } = useContext(AppointmentContext);
+
+  useEffect(() => {
+    console.log("appointmentData", appointmentData);
+    console.log("selectedMedicInfo", selectedMedicInfo);
+  }, []);
+
   return (
     <>
       <Flex
         height="100%"
         w="100%"
-        border="2px solid red"
         justifyContent={"center"}
         alignItems={"center"}
       >

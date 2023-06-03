@@ -1,4 +1,4 @@
-import { SpecializationInterface } from "../medics/types";
+import { AnimalInterface, SpecializationInterface } from "../medics/types";
 
 export const specializations: SpecializationInterface[] = [
   {
@@ -24,5 +24,16 @@ export const specializations: SpecializationInterface[] = [
   {
     id: 5,
     name: "General practitioner",
+  },
+];
+
+export const animals: AnimalInterface[] = [
+  {
+    id: "0",
+    name: "Cat",
+  },
+  {
+    id: "1",
+    name: "Dog",
   },
 ];

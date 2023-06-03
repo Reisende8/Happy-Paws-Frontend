@@ -74,7 +74,18 @@ export const CreateAppointmentComponent: React.FC = () => {
         justifyContent={"center"}
         alignItems={"center"}
       >
-        {renderPage()}
+        <Flex
+          height="100%"
+          w="100%"
+          border="3px solid"
+          borderRadius="20px"
+          borderColor="primary.200"
+          justifyContent={"center"}
+          alignItems={"center"}
+          direction={"column"}
+        >
+          {renderPage()}
+        </Flex>
       </Flex>
     </Flex>
   );

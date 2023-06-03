@@ -1,25 +1,26 @@
 import { Flex, Select, SelectProps, Text } from "@chakra-ui/react";
 import React from "react";
-import { SpecializationInterface } from "../medics/types";
+import { AnimalInterface, SpecializationInterface } from "../medics/types";
 
 interface SelectInterface extends SelectProps {
-  options: SpecializationInterface[];
+  options: SpecializationInterface[] | AnimalInterface[];
   error?: string;
+  label: string;
 }
 
 export const HPSelect: React.FC<SelectInterface> = (props) => {
-  const { options, error, ...others } = props;
+  const { options, error, label, ...others } = props;
   return (
     <Flex direction={"column"} width="100%" fontWeight={500} fontSize={"18px"}>
       <Text color={"primary.900"} px={1}>
-        Specialization
+        {label}
       </Text>
       <Select
+        border="2px solid"
         focusBorderColor="secondary.700"
         errorBorderColor={"danger.400"}
         borderColor={"primary.400"}
         w="100%"
-        border="2px solid"
         borderRadius={20}
         {...others}
       >
