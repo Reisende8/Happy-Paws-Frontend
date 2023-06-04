@@ -1,5 +1,4 @@
 import {
-  Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -10,8 +9,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { MedicInterface } from "./types";
 import { HPButton } from "../common/HPButton";
+import { MedicInterface } from "./types";
 
 interface ConfirmDeleteProps {
   medic: MedicInterface;

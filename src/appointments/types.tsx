@@ -13,6 +13,7 @@ export interface UseAppointmentInterface {
   onSelectMedic: (medicId: string) => void;
   selectedMedicInfo: RecommnendedMedicInterface;
   createAppointment: (ap: AppointmentInterface) => Promise<void>;
+  createdAppointmentData: SummaryAppointmentInterface;
 }
 
 export type UseAppointment = () => UseAppointmentInterface;
@@ -54,4 +55,25 @@ export interface ClinicInfoInterface {
   address: string;
   name: string;
   phoneNumber: string;
+}
+
+interface AppointmentMedic {
+  id: string;
+  firstName: string;
+  lastName: string;
+  estimatedPrice: number;
+  specializationId: string;
+}
+
+export interface SummaryAppointmentInterface {
+  id: string;
+  date: string;
+  slot: number;
+  description: string;
+  animal: AnimalInterface;
+  animalAge: number;
+  clientId: string;
+  status: string;
+  medic: AppointmentMedic;
+  clinic: ClinicInfoInterface;
 }

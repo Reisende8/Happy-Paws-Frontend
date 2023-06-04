@@ -1,31 +1,20 @@
-import {
-  CheckboxGroup,
-  Flex,
-  Text,
-  Checkbox,
-  Input,
-  RadioGroup,
-  Stack,
-  Radio,
-} from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import { HPButton } from "../../../common/HPButton";
 import { AppointmentContext } from "..";
+import { HPButton } from "../../../common/HPButton";
 import { HPInput } from "../../../common/HPInput";
 import { HPSelect } from "../../../common/HPSelect";
-import { animals, specializations } from "../../../utils";
 import { HPTextArea } from "../../../common/HPTextArea";
 import {
   AnimalInterface,
   SpecializationInterface,
 } from "../../../medics/types";
-import { AppointmentErrorInterface } from "../../types";
+import { animals, specializations } from "../../../utils";
 import { nextDate } from "../../../utils/validators";
+import { AppointmentErrorInterface } from "../../types";
 
 export const AppointmentInfoComponent: React.FC = () => {
   const {
-    activeStep,
-    setActiveStep,
     appointmentData,
     setAppointmentData,
     appointmentErrors,

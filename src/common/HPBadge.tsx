@@ -25,10 +25,11 @@ export const HPBadge: React.FC<HPBadgeInterface> = ({
         {label}
       </Text>
       <Flex
+        px={10}
         justifyContent={"center"}
         alignItems={"center"}
         width={"100%"}
-        h={h ? h : "40px"}
+        h={h ? h : ""}
         borderRadius={100}
         bgColor={color ? color : "primary.200"}
       >

@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { AppointmentContext } from "..";
 import { HPAppointmentListItem } from "../../../common/HPAppointmentListItem";
 

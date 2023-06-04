@@ -37,16 +37,26 @@ export const ClinicProfile: React.FC = () => {
         </Flex>
 
         <Flex w="100%" gap={8}>
-          <HPBadge label="Name" content={(user as ClinicInterface).name} />
+          <HPBadge
+            label="Name"
+            content={(user as ClinicInterface).name}
+            h="40px"
+          />
           <HPBadge
             label="Address"
             content={(user as ClinicInterface).address}
+            h="40px"
           />
         </Flex>
-        <HPBadge label="Email" content={(user as ClinicInterface).email} />
+        <HPBadge
+          label="Email"
+          content={(user as ClinicInterface).email}
+          h="40px"
+        />
         <HPBadge
           label="Phone Number"
           content={(user as ClinicInterface).phoneNumber}
+          h="40px"
         />
       </Flex>
     </Flex>

@@ -1,14 +1,14 @@
-import { Button, Flex, Icon, Spinner, Text, useToast } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import { Flex, Icon, Spinner, Text, useToast } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../auth";
+import { ClinicInterface } from "../auth/types";
 import { HPButton } from "../common/HPButton";
 import { HPListItem } from "../common/HPListItem";
-import { AddIcon } from "@chakra-ui/icons";
-import { MedicInterface } from "./types";
-import { AuthContext } from "../auth";
 import { apiClient, authorize } from "../utils/apiClient";
-import { ClinicInterface } from "../auth/types";
 import { AddNewMedicModal } from "./addNewMedicModal";
-import { useNavigate } from "react-router-dom";
+import { MedicInterface } from "./types";
 
 export const AllMedicsPage: React.FC = () => {
   const toast = useToast();

@@ -1,5 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
-import react from "react";
+import { Box } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
 
 interface HPTabInterface {

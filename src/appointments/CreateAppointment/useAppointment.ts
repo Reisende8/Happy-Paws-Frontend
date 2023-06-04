@@ -1,13 +1,14 @@
 import { useSteps, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
+import { apiClient, authorize } from "../../utils/apiClient";
+import { nextDate } from "../../utils/validators";
 import {
   AppointmentErrorInterface,
   AppointmentInterface,
   RecommnendedMedicInterface,
+  SummaryAppointmentInterface,
   UseAppointment,
 } from "../types";
-import { nextDate } from "../../utils/validators";
-import { apiClient, authorize } from "../../utils/apiClient";
 
 export const steps = [
   { title: "First Step", description: "Appointment Info" },
@@ -29,6 +30,8 @@ export const useAppointment: UseAppointment = () => {
   >([]);
   const [selectedMedicInfo, setSelectedMedicInfo] =
     useState<RecommnendedMedicInterface>({} as RecommnendedMedicInterface);
+  const [createdAppointmentData, setCreatedAppointmentData] =
+    useState<SummaryAppointmentInterface>({} as SummaryAppointmentInterface);
   const [appointmentData, setAppointmentData] = useState<AppointmentInterface>({
     date: nextDate(),
     description: "",
@@ -96,7 +99,7 @@ export const useAppointment: UseAppointment = () => {
     await apiClient
       .post("/api/appointment/create-appointment", appointmentData, authorize())
       .then((res) => {
-        console.log(res.data);
+        setCreatedAppointmentData(res.data);
         setActiveStep(activeStep + 1);
       })
       .catch((err) => {
@@ -124,5 +127,6 @@ export const useAppointment: UseAppointment = () => {
     onSelectMedic,
     selectedMedicInfo,
     createAppointment,
+    createdAppointmentData,
   };
 };

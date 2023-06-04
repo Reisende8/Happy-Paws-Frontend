@@ -1,8 +1,8 @@
-import { Flex, Icon, Text } from "@chakra-ui/react";
-import react from "react";
-import { HPButton } from "../../common/HPButton";
 import { AddIcon } from "@chakra-ui/icons";
+import { Flex, Icon, Text } from "@chakra-ui/react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { HPButton } from "../../common/HPButton";
 
 export const MyAppointmentsPage: React.FC = () => {
   const navigate = useNavigate();

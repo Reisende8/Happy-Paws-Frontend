@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
 import {
   Box,
-  Button,
   Flex,
-  Text,
   Step,
   StepDescription,
   StepIcon,
@@ -13,16 +10,14 @@ import {
   StepStatus,
   StepTitle,
   Stepper,
-  useSteps,
 } from "@chakra-ui/react";
-import { HPButton } from "../../common/HPButton";
-import { HPInput } from "../../common/HPInput";
-import { steps } from "./useAppointment";
+import React, { useContext } from "react";
 import { AppointmentContext } from ".";
+import { SummaryComponent } from "./FinalStep/SummaryComponent";
 import { AppointmentInfoComponent } from "./FirstStep/AppointmentInfoComponent";
 import { SelectMedicComponent } from "./SecondStep/SelectMedicComponent";
 import { SelectTimeComponent } from "./ThirdStep/SelectTimeComponent";
-import { SummaryComponent } from "./FinalStep/SummaryComponent";
+import { steps } from "./useAppointment";
 
 export const CreateAppointmentComponent: React.FC = () => {
   const { activeStep } = useContext(AppointmentContext);
@@ -42,9 +37,6 @@ export const CreateAppointmentComponent: React.FC = () => {
 
   return (
     <Flex w="60%" h="100%" direction="column" alignItems={"center"} gap={3}>
-      {/* <Text fontWeight={"bold"} fontSize={"4xl"} color={"primary.700"}>
-        Create Appointment
-      </Text> */}
       <Stepper size="lg" index={activeStep} w="100%" colorScheme="primary">
         {steps.map((step, index) => (
           <Step key={index}>

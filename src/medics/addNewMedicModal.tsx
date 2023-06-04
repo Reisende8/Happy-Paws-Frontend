@@ -10,17 +10,12 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HPButton } from "../common/HPButton";
 import { HPInput } from "../common/HPInput";
 import { HPSelect } from "../common/HPSelect";
-import {
-  AnimalInterface,
-  MedicErrorsInterface,
-  MedicInterface,
-  SpecializationInterface,
-} from "./types";
 import { specializations } from "../utils";
+import { AnimalInterface, MedicErrorsInterface, MedicInterface } from "./types";
 
 interface AddNewMedicModalInterface {
   isLoading: boolean;

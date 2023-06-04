@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import { Flex, Text } from "@chakra-ui/react";
+import React, { useContext } from "react";
 import { AppointmentContext } from "..";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { HPButton } from "../../../common/HPButton";
 import { HPBadge } from "../../../common/HPBadge";
+import { HPButton } from "../../../common/HPButton";
+import { HPSelectSlot } from "../../../common/HPSelectSlot";
 import { specializations, timeIntervals } from "../../../utils";
 import { AppointmentErrorInterface } from "../../types";
-import { HPSelectSlot } from "../../../common/HPSelectSlot";
 
 export const SelectTimeComponent: React.FC = () => {
   const {

@@ -1,9 +1,8 @@
 import { Flex, Text } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import { HPBadge } from "../../common/HPBadge";
-import { HPButton } from "../../common/HPButton";
 import { AuthContext } from "../../auth";
 import { ClientInterface } from "../../auth/types";
+import { HPBadge } from "../../common/HPBadge";
 import { EditClientModal } from "./editClientModal";
 
 export const ClientProfile: React.FC = () => {
@@ -41,16 +40,23 @@ export const ClientProfile: React.FC = () => {
           <HPBadge
             label="First Name"
             content={(user as ClientInterface).firstName}
+            h="40px"
           />
           <HPBadge
             label="Last Name"
             content={(user as ClientInterface).lastName}
+            h="40px"
           />
         </Flex>
-        <HPBadge label="Email" content={(user as ClientInterface).email} />
+        <HPBadge
+          label="Email"
+          content={(user as ClientInterface).email}
+          h="40px"
+        />
         <HPBadge
           label="Phone Number"
           content={(user as ClientInterface).phoneNumber}
+          h="40px"
         />
       </Flex>
     </Flex>

@@ -1,12 +1,12 @@
+import { Flex, Spinner, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { AnimalInterface, MedicInterface } from "../medics/types";
-import { apiClient, authorize } from "../utils/apiClient";
 import { useNavigate, useParams } from "react-router-dom";
-import { Flex, useToast, Text, Spinner } from "@chakra-ui/react";
 import { HPBadge } from "../common/HPBadge";
-import { AddNewMedicModal } from "../medics/addNewMedicModal";
 import { HPButton } from "../common/HPButton";
+import { AddNewMedicModal } from "../medics/addNewMedicModal";
+import { MedicInterface } from "../medics/types";
 import { specializations } from "../utils";
+import { apiClient, authorize } from "../utils/apiClient";
 
 export const MedicProfile: React.FC = () => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
@@ -119,10 +119,12 @@ export const MedicProfile: React.FC = () => {
           <HPBadge
             label="First Name"
             content={medicDetails?.firstName as string}
+            h="40px"
           />
           <HPBadge
             label="Last Name"
             content={medicDetails?.lastName as string}
+            h="40px"
           />
         </Flex>
         <HPBadge
@@ -132,11 +134,13 @@ export const MedicProfile: React.FC = () => {
               (sp) => sp.id.toString() === medicDetails?.specializationId
             )[0]?.name as string
           }
+          h="40px"
         />
         <Flex w="100%" gap={8}>
           <HPBadge
             label="Estimated Price"
             content={medicDetails?.estimatedPrice.toString() as string}
+            h="40px"
           />
           <HPBadge
             label="Animals"
@@ -145,6 +149,7 @@ export const MedicProfile: React.FC = () => {
                 .map((animal) => animal.name)
                 .toString() as string
             }
+            h="40px"
           />
         </Flex>
         <Flex justifyContent={"center"} w="100%">

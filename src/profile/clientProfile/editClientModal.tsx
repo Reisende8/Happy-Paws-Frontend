@@ -2,7 +2,6 @@ import {
   Flex,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -12,12 +11,11 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { ClientInterface } from "../../auth/types";
 import { HPButton } from "../../common/HPButton";
 import { HPInput } from "../../common/HPInput";
-import { ClientInterface } from "../../auth/types";
-import { ClientProfile } from ".";
-import { EditClientErrorsInterface } from "../types";
 import { apiClient, authorize } from "../../utils/apiClient";
+import { EditClientErrorsInterface } from "../types";
 
 interface EditClientInterface {
   user: ClientInterface;
