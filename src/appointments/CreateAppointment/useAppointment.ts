@@ -85,8 +85,30 @@ export const useAppointment: UseAppointment = () => {
     setAppointmentData({
       ...appointmentData,
       veterinarianId: medicId,
+      slot: -1,
     });
+    setAppointmentErrors({ ...appointmentErrors, slotError: "" });
     setActiveStep(activeStep + 1);
+  };
+
+  const createAppointment = async (appointmentData: AppointmentInterface) => {
+    setLoading(true);
+    await apiClient
+      .post("/api/appointment/create-appointment", appointmentData, authorize())
+      .then((res) => {
+        console.log(res.data);
+        setActiveStep(activeStep + 1);
+      })
+      .catch((err) => {
+        console.error(err);
+        return toast({
+          title: "ERROR",
+          status: "error",
+          position: "top-right",
+          description: `${err.response.data.message}`,
+        });
+      });
+    setLoading(false);
   };
 
   return {
@@ -101,5 +123,6 @@ export const useAppointment: UseAppointment = () => {
     recommendedMedicsData,
     onSelectMedic,
     selectedMedicInfo,
+    createAppointment,
   };
 };

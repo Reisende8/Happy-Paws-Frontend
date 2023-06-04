@@ -37,3 +37,10 @@ export const animals: AnimalInterface[] = [
     name: "Dog",
   },
 ];
+
+export const timeIntervals = [
+  "08:00 - 10:00",
+  "10:00 - 12:00",
+  "13:00 - 15:00",
+  "15:00 - 17:00",
+];

@@ -5,12 +5,14 @@ interface HPBadgeInterface {
   color?: string;
   label: string;
   content: string;
+  h?: string;
 }
 
 export const HPBadge: React.FC<HPBadgeInterface> = ({
   label,
   content,
   color,
+  h,
 }) => {
   return (
     <Flex direction={"column"} w="100%">
@@ -26,7 +28,7 @@ export const HPBadge: React.FC<HPBadgeInterface> = ({
         justifyContent={"center"}
         alignItems={"center"}
         width={"100%"}
-        h="40px"
+        h={h ? h : "40px"}
         borderRadius={100}
         bgColor={color ? color : "primary.200"}
       >

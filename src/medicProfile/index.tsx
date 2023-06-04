@@ -108,7 +108,6 @@ export const MedicProfile: React.FC = () => {
             m={0}
             onClick={() => {
               setEditModalOpen(true);
-              console.log();
             }}
             gap={2}
           >

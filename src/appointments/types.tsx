@@ -12,6 +12,7 @@ export interface UseAppointmentInterface {
   recommendedMedicsData: RecommnendedMedicInterface[];
   onSelectMedic: (medicId: string) => void;
   selectedMedicInfo: RecommnendedMedicInterface;
+  createAppointment: (ap: AppointmentInterface) => Promise<void>;
 }
 
 export type UseAppointment = () => UseAppointmentInterface;
