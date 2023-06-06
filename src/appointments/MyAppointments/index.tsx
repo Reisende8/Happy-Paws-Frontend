@@ -1,11 +1,40 @@
 import { AddIcon } from "@chakra-ui/icons";
-import { Flex, Icon, Text } from "@chakra-ui/react";
-import React from "react";
+import { Button, Flex, Grid, GridItem, Icon, Text } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HPButton } from "../../common/HPButton";
+import { apiClient, authorize } from "../../utils/apiClient";
+import { AuthContext } from "../../auth";
+import { ClientInterface } from "../../auth/types";
+import { SummaryAppointmentInterface } from "../types";
+import { HPBadge } from "../../common/HPBadge";
+import { specializations, timeIntervals } from "../../utils";
+import { HPGridItem } from "../../common/HPGridItem";
 
 export const MyAppointmentsPage: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const [appointmentsData, setAppointmentsData] =
+    useState<SummaryAppointmentInterface[]>();
+  useEffect(() => {
+    getAppointments();
+  }, []);
+
+  const getAppointments = async () => {
+    await apiClient
+      .get(
+        `/api/appointment/appointments/${(user as ClientInterface).clientId}`,
+        authorize()
+      )
+      .then((res) => {
+        console.log(res.data);
+        setAppointmentsData(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <Flex
       borderTop={"4px solid"}
@@ -38,6 +67,24 @@ export const MyAppointmentsPage: React.FC = () => {
           Create new appointment
         </HPButton>
       </Flex>
+
+      {appointmentsData?.length !== 0 ? (
+        <Grid
+          justifyContent={"center"}
+          border="6px solid"
+          borderColor="offWhite"
+          w="100%"
+          templateColumns="repeat(2, 45%)"
+          gap={6}
+          py={6}
+        >
+          {appointmentsData?.map((a, index) => {
+            return <HPGridItem key={a.id} appointment={a} index={index} />;
+          })}
+        </Grid>
+      ) : (
+        <></>
+      )}
     </Flex>
   );
 };
