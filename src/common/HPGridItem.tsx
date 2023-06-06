@@ -7,12 +7,28 @@ import { SummaryAppointmentInterface } from "../appointments/types";
 interface HPGridItemInterface {
   appointment: SummaryAppointmentInterface;
   index: number;
+  onClick: () => void;
+  loadingCancel: boolean;
 }
 
 export const HPGridItem: React.FC<HPGridItemInterface> = ({
   appointment,
   index,
+  onClick,
+  loadingCancel,
 }) => {
+  const getBadgeColorScheme = () => {
+    switch (appointment.status) {
+      case "pending":
+        return "warning";
+      case "fulfilled":
+        return "secondary";
+      case "canceled":
+        return "danger";
+      case "unfulfilled":
+        return "purple";
+    }
+  };
   return (
     <GridItem
       borderRadius={30}
@@ -29,50 +45,32 @@ export const HPGridItem: React.FC<HPGridItemInterface> = ({
           <Text fontSize={"2xl"} fontWeight={"bold"} color="primary.800">
             Appointment No #{index + 1}
           </Text>
-          {appointment.status === "canceled" ? (
-            <Badge
-              px={2}
-              colorScheme="danger"
-              fontSize={"lg"}
-              borderRadius={"full"}
-            >
-              {appointment.status}
-            </Badge>
-          ) : appointment.status === "pending" ? (
-            <Badge
-              px={2}
-              colorScheme="warning"
-              fontSize={"lg"}
-              borderRadius={"full"}
-            >
-              {appointment.status}
-            </Badge>
-          ) : (
-            <Badge
-              px={2}
-              colorScheme="secondary"
-              fontSize={"lg"}
-              borderRadius={"full"}
-            >
-              {appointment.status}
-            </Badge>
-          )}
+          <Badge
+            px={2}
+            colorScheme={getBadgeColorScheme()}
+            fontSize={"lg"}
+            borderRadius={"full"}
+          >
+            {appointment.status}
+          </Badge>
         </Flex>
 
-        {new Date(appointment.date) > new Date() && (
-          <Button
-            _hover={{ bgColor: "danger.500" }}
-            m={0}
-            borderRadius={100}
-            w={"110px"}
-            bgColor={"danger.300"}
-            textColor={"offWhite"}
-            fontSize={"md"}
-            onClick={() => {}}
-          >
-            Cancel
-          </Button>
-        )}
+        {new Date(appointment.date) > new Date() &&
+          appointment.status === "pending" && (
+            <Button
+              _hover={{ bgColor: "danger.500" }}
+              m={0}
+              borderRadius={100}
+              w={"110px"}
+              bgColor={"danger.300"}
+              textColor={"offWhite"}
+              fontSize={"md"}
+              onClick={onClick}
+              isLoading={loadingCancel}
+            >
+              Cancel
+            </Button>
+          )}
       </Flex>
       <Flex direction="column" gap={2} p={2}>
         <Flex w="100%" gap={4}>
