@@ -157,7 +157,7 @@ export const MedicProfile: React.FC = () => {
             maxW="400px"
             m={0}
             onClick={() => {
-              navigate(`/medics/${medicId}/previous_appointments`);
+              navigate(`/medics/previous_appointments/${medicId}`);
             }}
           >
             Previous Appointments

@@ -14,6 +14,7 @@ import { AllMedicsPage } from "../medics";
 import { MedicProfile } from "../medicProfile";
 import { MyAppointmentsPage } from "../appointments/MyAppointments";
 import { AppointmentPage } from "../appointments/CreateAppointment";
+import { PreviousAppointmentsPage } from "../previousAppointments";
 
 export const RoutesComponent: React.FC = () => {
   const { user } = useContext(AuthContext);
@@ -43,8 +44,8 @@ export const RoutesComponent: React.FC = () => {
           <Route path="/clinic-profile" element={<ClinicProfile />} />
           <Route path="/medics/:medicId" element={<MedicProfile />} />
           <Route
-            path="/medics/:medicId/previous_appointments"
-            element={<>PREVIOUS APPOINTMENTS</>}
+            path="/medics/previous_appointments/:medicId"
+            element={<PreviousAppointmentsPage />}
           />
         </>
       )}
