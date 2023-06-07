@@ -26,7 +26,6 @@ export const PreviousAppointmentsPage: React.FC = () => {
         authorize()
       )
       .then((res) => {
-        console.log(res.data);
         setYesterdayAppointmentsData(res.data.yesterdayAppointments);
         setPrevAppointmentsData(res.data.previousAppointments);
       })

@@ -72,52 +72,74 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
             <Th></Th>
           </Tr>
         </Thead>
-
-        <Tbody>
-          {appointmentsData?.map((ap) => {
-            return (
-              <Tr>
-                <Td fontWeight={"semibold"} color="primary.800">
-                  {ap.client.firstName} {ap.client.lastName}
-                </Td>
-                <Td fontWeight={"semibold"} color="primary.800">
-                  {ap.client.phoneNumber}
-                </Td>
-                <Td fontWeight={"semibold"} color="primary.800">
-                  {ap.date.split("T")[0]}
-                </Td>
-                <Td fontWeight={"semibold"} color="primary.800">
-                  {timeIntervals[ap.slot]}
-                </Td>
-                <Td fontWeight={"semibold"} color="primary.800">
-                  {ap.animal.name}
-                </Td>
-                <Td fontWeight={"semibold"} color="primary.800">
-                  {ap.animalAge}
-                </Td>
-                <Td fontWeight={"semibold"} color="primary.800">
-                  <Badge
-                    px={2}
-                    colorScheme={getBadgeColorScheme(ap.status)}
-                    fontSize={"sm"}
-                    borderRadius={"full"}
-                  >
-                    {ap.status}
-                  </Badge>
-                </Td>
-                <Td>
-                  {isForYesterdayAppointments && (
-                    <Button colorScheme="primary" borderRadius={20}>
-                      {ap.status === "fulfilled"
-                        ? "Mark as unfulfilled"
-                        : "fulfilled"}
-                    </Button>
-                  )}
-                </Td>
-              </Tr>
-            );
-          })}
-        </Tbody>
+        {appointmentsData?.length === 0 ? (
+          <Tbody>
+            <Tr>
+              <Td colSpan={8}>
+                <Text
+                  fontWeight={"semibold"}
+                  fontSize={"2xl"}
+                  color={"primary.700"}
+                  textAlign="center"
+                >
+                  {isForYesterdayAppointments
+                    ? "The medic doesn't have yesterday appointments!"
+                    : "The medic doesn't have previous appointments!"}
+                </Text>
+              </Td>
+            </Tr>
+          </Tbody>
+        ) : (
+          <Tbody>
+            {appointmentsData?.map((ap) => {
+              return (
+                <Tr key={ap.id}>
+                  <Td fontWeight={"semibold"} color="primary.800">
+                    {ap.client.firstName} {ap.client.lastName}
+                  </Td>
+                  <Td fontWeight={"semibold"} color="primary.800">
+                    {ap.client.phoneNumber}
+                  </Td>
+                  <Td fontWeight={"semibold"} color="primary.800">
+                    {ap.date.split("T")[0]}
+                  </Td>
+                  <Td fontWeight={"semibold"} color="primary.800">
+                    {timeIntervals[ap.slot]}
+                  </Td>
+                  <Td fontWeight={"semibold"} color="primary.800">
+                    {ap.animal.name}
+                  </Td>
+                  <Td fontWeight={"semibold"} color="primary.800">
+                    {ap.animalAge}
+                  </Td>
+                  <Td fontWeight={"semibold"} color="primary.800">
+                    <Badge
+                      px={2}
+                      colorScheme={getBadgeColorScheme(ap.status)}
+                      fontSize={"sm"}
+                      borderRadius={"full"}
+                    >
+                      {ap.status}
+                    </Badge>
+                  </Td>
+                  <Td w={"220px"}>
+                    {isForYesterdayAppointments && (
+                      <Button
+                        colorScheme="primary"
+                        borderRadius={20}
+                        w={"160px"}
+                      >
+                        {ap.status === "fulfilled"
+                          ? "Mark as unfulfilled"
+                          : "fulfilled"}
+                      </Button>
+                    )}
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        )}
       </Table>
     </TableContainer>
   );
