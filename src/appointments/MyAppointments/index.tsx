@@ -128,7 +128,11 @@ export const MyAppointmentsPage: React.FC = () => {
           })}
         </Grid>
       ) : (
-        <></>
+        <Flex w="100%" h="100%" justifyContent={"center"} alignItems={"center"}>
+          <Text fontWeight={"semibold"} fontSize={"2xl"} color={"primary.700"}>
+            You don't have any appointments!
+          </Text>
+        </Flex>
       )}
     </Flex>
   );

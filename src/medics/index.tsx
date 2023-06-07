@@ -131,21 +131,30 @@ export const AllMedicsPage: React.FC = () => {
           Add new medic
         </HPButton>
       </Flex>
-      <Flex direction={"column"} py={6}>
-        {medicsData?.map((medic) => {
-          return (
-            <HPListItem
-              medic={medic}
-              key={medic.medicId}
-              name={`${medic.firstName} ${medic.lastName}`}
-              onDelete={deleteMedic}
-              onMoreDetailsClick={() => {
-                navigate(`/medics/${medic.medicId}`);
-              }}
-            />
-          );
-        })}
-      </Flex>
+      {medicsData?.length !== 0 ? (
+        <Flex direction={"column"} py={6}>
+          {medicsData?.map((medic) => {
+            return (
+              <HPListItem
+                medic={medic}
+                key={medic.medicId}
+                name={`${medic.firstName} ${medic.lastName}`}
+                onDelete={deleteMedic}
+                onMoreDetailsClick={() => {
+                  navigate(`/medics/${medic.medicId}`);
+                }}
+              />
+            );
+          })}
+        </Flex>
+      ) : (
+        <Flex w="100%" h="100%" justifyContent={"center"} alignItems={"center"}>
+          <Text fontWeight={"semibold"} fontSize={"2xl"} color={"primary.700"}>
+            The clinic doesn't have any medics!
+          </Text>
+        </Flex>
+      )}
+
       {addModalOpen && (
         <AddNewMedicModal
           isLoading={loadingModal}
