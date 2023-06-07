@@ -160,7 +160,7 @@ export const MedicProfile: React.FC = () => {
               navigate(`/medics/previous_appointments/${medicId}`);
             }}
           >
-            Previous Appointments
+            Appointments
           </HPButton>
         </Flex>
       </Flex>

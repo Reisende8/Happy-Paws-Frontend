@@ -17,12 +17,18 @@ import { PreviousAppointmentInterface } from "./types";
 
 interface AppointmentsTableInterface {
   appointmentsData: PreviousAppointmentInterface[];
-  isForYesterdayAppointments: boolean;
+  isForYesterdayAppointments?: boolean;
+  onFulfillClick: (id: string) => void;
+  onUnfulfillClick: (id: string) => void;
+  title: string;
 }
 
 export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
   appointmentsData,
   isForYesterdayAppointments,
+  onFulfillClick,
+  onUnfulfillClick,
+  title,
 }) => {
   const getBadgeColorScheme = (status: string) => {
     switch (status) {
@@ -38,11 +44,9 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
   };
 
   return (
-    <TableContainer>
-      <Text fontWeight={"bold"} fontSize={"4xl"} color={"primary.600"} mb={2}>
-        {isForYesterdayAppointments
-          ? "Yesterday Appointments"
-          : "Previous Appointments"}
+    <>
+      <Text fontWeight={"bold"} fontSize={"4xl"} color={"primary.600"}>
+        {title}
       </Text>
 
       <Table variant="striped" colorScheme="primary" bgColor={"offWhite"}>
@@ -70,6 +74,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
               Status
             </Th>
             <Th></Th>
+            <Th></Th>
           </Tr>
         </Thead>
         {appointmentsData?.length === 0 ? (
@@ -82,9 +87,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
                   color={"primary.700"}
                   textAlign="center"
                 >
-                  {isForYesterdayAppointments
-                    ? "The medic doesn't have yesterday appointments!"
-                    : "The medic doesn't have previous appointments!"}
+                  The medic doesn't have appointments!
                 </Text>
               </Td>
             </Tr>
@@ -122,25 +125,45 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
                       {ap.status}
                     </Badge>
                   </Td>
-                  <Td w={"220px"}>
-                    {isForYesterdayAppointments && (
-                      <Button
-                        colorScheme="primary"
-                        borderRadius={20}
-                        w={"160px"}
-                      >
-                        {ap.status === "fulfilled"
-                          ? "Mark as unfulfilled"
-                          : "fulfilled"}
-                      </Button>
-                    )}
-                  </Td>
+                  {ap.status === "canceled" ? (
+                    <>
+                      <Td></Td>
+                      <Td></Td>
+                    </>
+                  ) : (
+                    <>
+                      <Td p={0}>
+                        {isForYesterdayAppointments && (
+                          <Button
+                            onClick={() => onFulfillClick(ap.id)}
+                            colorScheme="secondary"
+                            borderRadius={20}
+                            h={8}
+                          >
+                            fulfill
+                          </Button>
+                        )}
+                      </Td>
+                      <Td p={0}>
+                        {isForYesterdayAppointments && (
+                          <Button
+                            onClick={() => onUnfulfillClick(ap.id)}
+                            colorScheme="purple"
+                            borderRadius={20}
+                            h={8}
+                          >
+                            unfulfill
+                          </Button>
+                        )}
+                      </Td>
+                    </>
+                  )}
                 </Tr>
               );
             })}
           </Tbody>
         )}
       </Table>
-    </TableContainer>
+    </>
   );
 };
