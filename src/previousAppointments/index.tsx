@@ -16,6 +16,8 @@ export const PreviousAppointmentsPage: React.FC = () => {
   const [prevAppointmentsData, setPrevAppointmentsData] =
     useState<PreviousAppointmentInterface[]>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingFulfill, setLoadingFulfill] = useState<boolean>(false);
+  const [loadingUnfulfill, setLoadingUnfulfill] = useState<boolean>(false);
   useEffect(() => {
     getPreviousAppointments();
   }, []);
@@ -42,6 +44,7 @@ export const PreviousAppointmentsPage: React.FC = () => {
   };
 
   const fulfillAppointment = async (appointmentId: string) => {
+    setLoadingFulfill(true);
     await apiClient
       .get(`/api/appointment/fulfill-appointment/${appointmentId}`, authorize())
       .then((res) => {
@@ -55,10 +58,20 @@ export const PreviousAppointmentsPage: React.FC = () => {
           })
         );
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(err);
+        return toast({
+          title: "ERROR",
+          status: "error",
+          position: "top-right",
+          description: `${err.response.data.message}`,
+        });
+      });
+    setLoadingFulfill(false);
   };
 
   const unfulfillAppointment = async (appointmentId: string) => {
+    setLoadingUnfulfill(true);
     await apiClient
       .get(
         `/api/appointment/unfulfill-appointment/${appointmentId}`,
@@ -75,7 +88,16 @@ export const PreviousAppointmentsPage: React.FC = () => {
           })
         );
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(err);
+        return toast({
+          title: "ERROR",
+          status: "error",
+          position: "top-right",
+          description: `${err.response.data.message}`,
+        });
+      });
+    setLoadingUnfulfill(false);
   };
 
   return loading ? (
@@ -83,7 +105,7 @@ export const PreviousAppointmentsPage: React.FC = () => {
       <Spinner size="xl" colorScheme="primary" thickness="4px" />
     </Flex>
   ) : (
-    <Flex w="100%" direction="column" gap={5} mt={"60px"}>
+    <Flex w="100%" h="100%" direction="column" gap={5}>
       <AppointmentsTable
         title={"Yesterday Appointments"}
         onFulfillClick={fulfillAppointment}

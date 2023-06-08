@@ -28,6 +28,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
   isForYesterdayAppointments,
   onFulfillClick,
   onUnfulfillClick,
+
   title,
 }) => {
   const getBadgeColorScheme = (status: string) => {
@@ -44,7 +45,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
   };
 
   return (
-    <>
+    <Flex w="100%" h="100%" direction={"column"} pb={4}>
       <Text fontWeight={"bold"} fontSize={"4xl"} color={"primary.600"}>
         {title}
       </Text>
@@ -80,7 +81,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
         {appointmentsData?.length === 0 ? (
           <Tbody>
             <Tr>
-              <Td colSpan={8}>
+              <Td colSpan={9}>
                 <Text
                   fontWeight={"semibold"}
                   fontSize={"2xl"}
@@ -164,6 +165,6 @@ export const AppointmentsTable: React.FC<AppointmentsTableInterface> = ({
           </Tbody>
         )}
       </Table>
-    </>
+    </Flex>
   );
 };
