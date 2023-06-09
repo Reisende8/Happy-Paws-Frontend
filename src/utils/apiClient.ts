@@ -19,3 +19,15 @@ export const authorize = () => {
     },
   };
 };
+apiClient.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("token");
+      window.location.replace("/");
+    }
+    return Promise.reject(error);
+  }
+);
