@@ -1,0 +1,18 @@
+- name: Deploy to Kubernetes
+  hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Create Kubernetes deployment
+      community.kubernetes.k8s:
+        kubeconfig: "{{ lookup('env', 'KUBECONFIG') }}"
+        state: present
+        namespace: default
+        definition: "{{ lookup('file', lookup('env', 'WORKSPACE') ~ '/k8s/deployment.yaml') }}"
+        
+    - name: Create Kubernetes service
+      community.kubernetes.k8s:
+        kubeconfig: "{{ lookup('env', 'KUBECONFIG') }}"
+        state: present
+        namespace: default
+        definition: "{{ lookup('file', lookup('env', 'WORKSPACE') ~ '/k8s/service.yaml') }}"
