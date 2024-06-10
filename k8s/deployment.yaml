@@ -17,4 +17,4 @@ spec:
       - name: happy-paws-frontend
         image: reisende8/happy-paws-frontend:latest
         ports:
-        - containerPort: 9090  # Ensure this matches the targetPort in the service
+        - containerPort: 80  # Ensure this matches the targetPort in the service
