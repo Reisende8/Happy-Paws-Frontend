@@ -10,5 +10,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 9090  # Match the containerPort defined in the deployment
+      targetPort: 80  # Match the containerPort defined in the deployment
       nodePort: 30007
