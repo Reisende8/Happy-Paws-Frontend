@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GIT_REPO_URL = 'https://github.com/Reisende8/Happy-Paws.git'
+        GIT_REPO_URL = 'https://github.com/Reisende8/Happy-Paws-Frontend.git'
         GIT_BRANCH = 'main'
         GIT_CREDENTIALS_ID = 'github'
         DOCKER_CREDENTIALS_ID = 'dockerhub'
@@ -39,6 +39,15 @@ pipeline {
                    export NVM_DIR="\$HOME/.nvm"
                    [ -s "\$NVM_DIR/nvm.sh" ] && \\. "\$NVM_DIR/nvm.sh"
                    npm test
+                """
+            }
+        }
+        stage('Build Artefact') {
+            steps {
+                sh """
+                   export NVM_DIR="\$HOME/.nvm"
+                   [ -s "\$NVM_DIR/nvm.sh" ] && \\. "\$NVM_DIR/nvm.sh"
+                   npm run build
                 """
             }
         }
