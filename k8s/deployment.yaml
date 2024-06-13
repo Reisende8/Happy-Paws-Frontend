@@ -18,4 +18,4 @@ spec:
         image: reisende8/happy-paws-frontend:latest
         ports:
         - containerPort: 80
-          hostPort: 30007  # Add this line to map container port 80 to host port 30007
+          hostPort: 30007  
